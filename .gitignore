@@ -1,0 +1,23 @@
+# Python cache
+__pycache__/
+*.pyc
+
+# Jupyter notebooks (don’t upload)
+*.ipynb
+
+# System files
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+
+# Temp files
+*.tmp
+
+# VS Code / IDE
+.vscode/
+.idea/
+
+# Env files (if any)
+.env
