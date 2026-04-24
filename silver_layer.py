@@ -67,4 +67,5 @@ df_silver.select("ticker", "security_name", "listing_exchange").show(10)
 
 df_silver.write.format("delta") \
     .mode("overwrite") \
+    .option("overwriteSchema", "true") \
     .saveAsTable("databricks_stocks.default.stocks_silver_layer")
