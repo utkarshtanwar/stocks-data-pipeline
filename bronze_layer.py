@@ -22,7 +22,7 @@ meta_df = spark.read.csv(
 # ================================
 # extract file path
 
-from pyspark.sql.functions import col, regexp_extract, expr
+from pyspark.sql.functions import col, regexp_extract, expr, to_date
 
 df = df.withColumn("file_path", col("_metadata.file_path"))
 
@@ -71,6 +71,29 @@ df = (
 
 
 # ================================
+# STEP 5.1: Fix DATE 
+# ================================
+
+df = df.withColumn(
+    "date",
+    expr("try_to_date(date, 'yyyy-MM-dd')")  
+)
+
+# ================================
+# STEP 5.2: Validate DATE (NEW)
+# ================================
+
+invalid_dates = df.filter(col("date").isNull()).count()
+print("invalid_date_rows:", invalid_dates)
+
+# ================================
+# STEP 5.3: Remove invalid DATE rows 
+# ================================
+
+df = df.filter(col("date").isNotNull())
+
+
+# ================================
 # STEP 6: Quick checks
 # ================================
 print("rows:", df.count())
@@ -94,4 +117,5 @@ meta_df.write.format("delta") \
 # save stocks
 df.write.format("delta") \
     .mode("overwrite") \
+    .option("overwriteSchema", "true") \
     .saveAsTable("databricks_stocks.default.stocks_bronze_layer")
