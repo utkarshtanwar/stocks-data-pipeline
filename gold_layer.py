@@ -76,4 +76,5 @@ df_gold = df.select(
 
 df_gold.write.format("delta") \
     .mode("overwrite") \
+    .option("overwriteSchema", "true") \
     .saveAsTable("databricks_stocks.default.stocks_gold_layer")
