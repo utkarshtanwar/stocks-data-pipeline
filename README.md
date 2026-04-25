@@ -37,6 +37,37 @@ Created time-based metrics using window functions:
 
 ---
 
+## Data Validation
+
+Data quality checks were performed at each layer:
+
+**Bronze Layer**
+- Row count validation
+- Date range checks (min/max)
+- Detection of invalid values
+
+**Silver Layer**
+- Removed rows where all OHLC values were null
+- Ensured no null dates
+- Verified row count difference with Bronze
+
+**Gold Layer**
+- Validated min/max date range
+- Checked derived columns (daily_return, ma_7, volatility)
+
+---
+
+## SQL Validation
+
+SQL queries were used for validation and sanity checks such as:
+- Row counts
+- Null value checks
+- Date range validation
+
+All queries are available in the `sql/` folder.
+
+---
+
 ## Tech Stack
 
 - Databricks  
@@ -57,8 +88,9 @@ Created time-based metrics using window functions:
 
 ## Dataset
 
-- Historical stock and ETF data (CSV files)
+- Historical stock and ETF data (CSV files) - https://www.kaggle.com/datasets/jacksoncrow/stock-market-dataset 
 - Metadata file containing company information
+- 28 million+ rows stocks dataset
 
 ---
 
