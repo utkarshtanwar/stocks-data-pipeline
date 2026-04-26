@@ -80,7 +80,7 @@ df = df.withColumn(
 )
 
 # ================================
-# STEP 5.2: Validate DATE (NEW)
+# STEP 5.2: Validate DATE 
 # ================================
 
 invalid_dates = df.filter(col("date").isNull()).count()
